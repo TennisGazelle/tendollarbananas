@@ -13,6 +13,9 @@ from api.services.CommodityService import CommodityService
 home_api = Blueprint('api', __name__)
 commodity_service = CommodityService()
 
+"""
+    All of these routes assume /api as the base path
+"""
 
 @home_api.route('/')
 @swag_from({

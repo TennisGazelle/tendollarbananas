@@ -13,8 +13,6 @@ import SimpleCard from "app/components/SimpleCard";
 
 import CommodityLineChart from "app/views/charts/CommodityLineChart"
 
-
-
 // STYLED COMPONENTS
 const ContentBox = styled("div")(({ theme }) => ({
     margin: "30px",
@@ -116,7 +114,7 @@ export default function Commodity() {
                 <SimpleCard title={focusedCommodity.name}>
                     <H1>${focusedCommodity.avgLocalCost} per {focusedCommodity.unit}</H1>
                     <H4>Average Local Cost</H4>
-                    <CommodityLineChart 
+                    <CommodityLineChart
                         height="350px"
                         color={[theme.palette.primary.main]}
                         data={{

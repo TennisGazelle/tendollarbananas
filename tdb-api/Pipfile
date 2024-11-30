@@ -9,6 +9,9 @@ flasgger = "*"
 flask-marshmallow = "*"
 apispec = "*"
 python-dotenv = "*"
+requests = "*"
+bs4 = "*"
+lxml = "*"
 
 [dev-packages]
 
