@@ -1,0 +1,66 @@
+name: TDB API CICD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  pr:
+    # run this if its a PR
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: pipenv install
+
+      - name: Run tests
+        run: pipenv run python -m unittest
+  
+  cicd:
+    # run this if its a push
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: pipenv install
+
+      - name: Run tests
+        run: pipenv run python -m unittest
+
+      # - name: Build and push Docker image
+      #   run: |
+      #     echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      #     docker build -t tdb-api .
+      #     docker tag tdb-api ${{ secrets.DOCKER_USERNAME }}/tdb-api
+      #     docker push ${{ secrets.DOCKER_USERNAME }}/tdb-api
+
+      # - name: Deploy to Kubernetes
+      #   uses: azure/k8s-deploy@v1
+      #   with:
+      #     kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      #     namespace: default
+      #     images: ${{ secrets.DOCKER_USERNAME }}/tdb-api:latest
+      #     imagepullsecret: ${{ secrets.DOCKER_USERNAME }}-regcred
+      #     containers: tdb-api=tdb-api
+      #     containerport: 3000
+      #     command: kubectl apply -f k8s/deployment.yaml

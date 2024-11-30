@@ -7,11 +7,12 @@ FLASK_ENV = development  # Change to production as needed
 
 # Install dependencies
 install:
-	pipenv install --dev
+	ls
+	pipenv install
 
 # Run Flask app
 run:
-	PIPENV_PIPFILE=Pipfile pipenv run flask run --host=0.0.0.0 --port=5000
+	PIPENV_PIPFILE=Pipfile pipenv run python3 -m flask run --host=0.0.0.0 --port=5000
 
 # Deploy app (production example)
 deploy:
